@@ -6,7 +6,7 @@
 - If two sources disagree, use the one tied to the most recent release and tell the user.
 
 ## Preparation trail / trailmix
-- If the Trailhead MCP connector is available, use `content_search` with the certification name (e.g. "Prepare for your Platform App Builder") to get the trail or trailmix and its module/unit list, then `fetch_content` for structure. Module body text may not come through; use the connector for the list of modules and units, then move on.
+- Trailhead MCP is required for this step. Use `content_search` with the certification name (e.g. "Prepare for your Platform App Builder") to get the trail or trailmix and its module/unit list, then `fetch_content` for structure. Module body text may not come through; use the connector for the list of modules and units, then move on. If the connector is not available in the current client, ask the user to complete the setup in the README before continuing.
 - Trailhead pages usually can't be fetched directly (robots-blocked). Don't spend calls on web_fetch for trailhead.salesforce.com/content/learn/...
 
 ## Unit and article text
