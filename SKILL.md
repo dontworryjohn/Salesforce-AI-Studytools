@@ -40,12 +40,41 @@ The real Salesforce exams are built from business use cases, not fact recall. A 
 
 ### Shape of every question
 
-- **Stem length: about 50-110 words.** Open with a fictional company (Universal Containers, Cloud Kicks, Northern Trail Outfitters, Ursa Major Solar and similar), its edition or plan, who is involved, and what they need. One-line recall stems are not allowed, except for at most 10% of a set as quick definition checks.
-- **At least two requirements or constraints.** For example: a business need plus a limit such as least privilege, no code, fewest steps, lowest maintenance, minimal licence cost, an existing tool that must be kept, or a data-volume or timing constraint. The constraint is usually what decides between two otherwise valid options.
-- **One or two irrelevant details.** Include realistic facts that don't change the answer (team size, a past project, a feature already in use elsewhere), so the learner practises filtering, as on the real exam. Never let an irrelevant detail make a second option correct.
+- **Vary the stem length at random.** Real exams mix short and long questions, so a set should not settle into one rhythm. Let each question's length follow what it needs, and mix roughly: about 25% short (one or two sentences, around 15-40 words, still applied to a situation, e.g. "A Pro workspace wants X without Y. What should the admin do?"), about 40% medium (around 40-80 words), about 25% long (around 80-130 words, with more context and irrelevant detail), and about 10% very long (around 150-230 words; at least one per 10 questions, at a random position). Shuffle the lengths through the set so long and short questions don't cluster, and never let length hint at difficulty or at the answer. Most stems open with a fictional company (Universal Containers, Cloud Kicks, Northern Trail Outfitters, Ursa Major Solar and similar), its edition or plan, who is involved, and what they need; short stems can compress this to a single clause. Pure recall stems ("Which feature does X?") are capped at 10% of a set.
+- **Very long questions read like a real case study.** Use them for merges and acquisitions, migrations, rollouts, security incidents and multi-team projects. Give the background (companies, plans or editions, team sizes, tools already in use), name two or three stakeholders who each want something, add three or four irrelevant details, and bury the deciding requirements in the middle of the story, not at the end. Close with one clear question. The options stay short and parallel; the length is in the stem only.
+- **Requirements or constraints in most questions.** For example: a business need plus a limit such as least privilege, no code, fewest steps, lowest maintenance, minimal licence cost, an existing tool that must be kept, or a data-volume or timing constraint. The constraint is usually what decides between two otherwise valid options.
+- **Irrelevant details in medium and long questions.** Include one or two realistic facts that don't change the answer (team size, a past project, a feature already in use elsewhere), so the learner practises filtering, as on the real exam. Never let an irrelevant detail make a second option correct.
 - **Ask for a judgement, not a definition.** Prefer: "What should the administrator recommend?", "What is the best solution?", "What should the consultant do first?", "Which approach meets the requirements with the least effort?", "What will happen when...?", "Why is ... not working?". Use plain recall ("Which feature does X?") only for the small allowance above.
 - **Two plausible options.** At least two options should solve the stated business need; only one also satisfies every constraint. The explanation must name the constraint that eliminates the near-miss.
 - **Troubleshooting and consequence items.** In each full exam, make roughly 15-20% "something isn't working, why?" or "what happens to existing records/users/data after this change?" questions.
+
+### Multi-requirement questions (mix them in at random)
+
+Real exams sometimes list several requirements, and only one option meets every one of them. Use this format for roughly 25-40% of a set, placed at random. It should appear unpredictably, not in every question, not on a fixed rotation (such as every third question), and not grouped together. Vary how the requirements are presented, so the format itself doesn't become a pattern:
+
+- **A numbered list** after the scenario ("The solution must:" with 2-4 numbered requirements, one per line; the page keeps line breaks). Use this for some of the multi-requirement questions, not all.
+- **Inline requirements** woven into the prose ("...must be live by Friday, can't involve code, and mustn't change access for anyone else.").
+- **Implied constraints** the learner has to spot in the story ("The company has no developers" or "Legal has asked that nothing else changes").
+
+The other questions should rely on a single deciding constraint, a troubleshooting angle, or a consequence ("what happens to existing records?").
+
+For every multi-requirement question, whichever format is used:
+
+- **Keep each requirement specific and testable**: a business outcome, a constraint (no code, least privilege, available on the current edition), or a scope limit ("without changing retention for anyone else").
+- **Every wrong option meets most requirements but fails at least one.** Build options by starting from the correct answer and breaking one requirement at a time. Avoid options that fail everything; they're too easy to eliminate.
+- **Options can be short combinations** ("Feature X with setting Y, plus Z") when the answer needs more than one piece. Keep them parallel in structure, so each differs from the correct one in one element.
+- **Explanations map to the requirements.** In `why`, confirm how the answer meets each one; in each `wrong` line, name the requirement it fails ("Fails requirement 2: ..." for numbered lists, or "Fails the no-code requirement" for inline or implied ones).
+
+Example stem:
+> Cloud Kicks (Pro) is bringing in a freelance designer for three months.
+> The solution must:
+> 1. Give access to #design and #brand only
+> 2. Keep the rest of the workspace hidden from them
+> 3. End their access automatically when the contract ends
+>
+> What should the admin do?
+
+Correct: multi-channel guest with an expiration date. Near-misses: a single-channel guest with an expiry (fails 1), a multi-channel guest with no expiry (fails 3), a full member removed later (fails 2 and 3).
 
 ### Example: recall style vs use-case style
 
@@ -77,11 +106,12 @@ In `why`, name the rule and the constraint it satisfies ("Permission sets add ac
 
 Before running the builder, check the whole set:
 
-1. At least 90% of stems are scenarios of roughly 50-110 words with two or more requirements or constraints.
-2. Every scenario question has a near-miss option, and its `wrong` line names the deciding constraint.
-3. Irrelevant details never make a second option correct.
-4. Every fact is traceable to the gathered sources.
-5. Correct letters are evenly spread.
+1. Stem lengths are mixed (roughly 25% short, 40% medium, 25% long, 10% very long, with at least one very long question per 10) and shuffled, with no long or short clusters; at most 10% are pure recall.
+2. Multi-requirement questions make up roughly 25-40% of the set, appear at random positions (not every question, not on a fixed rotation), and use a mix of numbered, inline and implied formats; each wrong option in them fails at least one requirement.
+3. Every scenario question has a near-miss option, and its `wrong` line names the deciding constraint.
+4. Irrelevant details never make a second option correct.
+5. Every fact is traceable to the gathered sources.
+6. Correct letters are evenly spread.
 
 Fix any question that fails before building.
 
@@ -94,18 +124,18 @@ Always deliver questions as the exam page built from this skill's template, neve
 
 For each question, write:
 
-1. **Why the answer is right** (`why`): one or two sentences naming the exact rule (who, which plan, which level).
-2. **Why each other option is wrong** (`wrong`): one line per wrong option, in the form "B (option text): reason". Say what the option is actually correct for, so the learner learns the neighbouring rule too. Cover every wrong option; the builder rejects a question that misses one.
-3. **Review links** (`review`): `{title, url}` for the sources the question came from. The page renders them as tappable titled links.
+7. **Why the answer is right** (`why`): one or two sentences naming the exact rule (who, which plan, which level).
+8. **Why each other option is wrong** (`wrong`): one line per wrong option, in the form "B (option text): reason". Say what the option is actually correct for, so the learner learns the neighbouring rule too. Cover every wrong option; the builder rejects a question that misses one.
+9. **Review links** (`review`): `{title, url}` for the sources the question came from. The page renders them as tappable titled links.
    - Trailhead unit: `https://trailhead.salesforce.com/content/learn/modules/<module-slug>/<unit-slug>`.
    - Help or documentation articles: use the URL as it appears in the sources or search results.
    - Never invent a slug or URL. If the exact unit is uncertain, link the module. If no URL was found, give the title only, and the page will tell the learner to search for it.
 
 Build steps (both modes):
-1. Write `exam.json` in the shape documented at the top of `scripts/build_timed_exam.py`. Set `"mode": "practice"` for practice mode, and give the exam a unique `id` (cert + date + letter) so saved progress from an old quiz isn't picked up. For practice mode, set `timeLimitMinutes` to a suggested pace (real minutes × questions ÷ real question count, rounded up); the page shows it as a suggestion only.
-2. Build: `python3 <skill-dir>/scripts/build_timed_exam.py exam.json /mnt/user-data/outputs/<cert>-<practice|timed>-<n>.html`. It validates the data and prints the spread of correct letters; if one letter dominates, rotate options and rebuild.
-3. Publish the file with the Artifact tool (favicon "📝" for practice, "⏱️" for timed; title = quiz name). If the Artifact tool isn't available, present the file with present_files instead.
-4. In the reply, write two or three sentences (domain split, question count, pass mark as % and count, suggested or real time), then give a tappable Markdown link to the page, e.g. **[Open Slack Administrator Practice Quiz 2](<artifact url>)**, and say that the questions appear after tapping **Start quiz** (or **Start exam**). Don't paste the bare URL and don't reveal answers in chat. Keep the link separate from any skill or file cards in the same reply.
+10. Write `exam.json` in the shape documented at the top of `scripts/build_timed_exam.py`. Set `"mode": "practice"` for practice mode, and give the exam a unique `id` (cert + date + letter) so saved progress from an old quiz isn't picked up. For practice mode, set `timeLimitMinutes` to a suggested pace (real minutes × questions ÷ real question count, rounded up); the page shows it as a suggestion only.
+11. Build: `python3 <skill-dir>/scripts/build_timed_exam.py exam.json /mnt/user-data/outputs/<cert>-<practice|timed>-<n>.html`. It validates the data and prints the spread of correct letters; if one letter dominates, rotate options and rebuild.
+12. Publish the file with the Artifact tool (favicon "📝" for practice, "⏱️" for timed; title = quiz name). If the Artifact tool isn't available, present the file with present_files instead.
+13. In the reply, write two or three sentences (domain split, question count, pass mark as % and count, suggested or real time), then give a tappable Markdown link to the page, e.g. **[Open Slack Administrator Practice Quiz 2](<artifact url>)**, and say that the questions appear after tapping **Start quiz** (or **Start exam**). Don't paste the bare URL and don't reveal answers in chat. Keep the link separate from any skill or file cards in the same reply.
 
 If the user asks for a printable or document version, write plain text with numbered questions and a separate answer key at the end, using the same three parts per question, with titled Markdown links.
 
@@ -120,12 +150,12 @@ Use this instead of practice mode when the user asks for a countdown, timer, tim
 What the page does: start screen with question count, time limit and pass mark; a countdown in the header that changes colour at 5 minutes and 1 minute; one question at a time with Previous/Next, a question navigator and flag-for-review; a submit confirmation that warns about unanswered or flagged questions; automatic submission when time runs out. After submitting it shows pass/fail, score by domain, time used, a study list of review links from missed questions, and every question's explanation (filterable to incorrect, flagged or all). Progress and the clock survive closing the page.
 
 Steps:
-1. Write the questions exactly as in sections 3 and 4, with no `mode` field (timed is the default) and no hints (the real exam has none). Write `exam.json` in the shape documented at the top of `scripts/build_timed_exam.py`: `why` holds the explanation of the correct answer, `wrong` holds one line per incorrect option (the builder rejects a question that misses one), and `review` holds `{title, url}` links following the same no-invented-URL rule. Give the exam a unique `id` (cert + date + letter) so a new exam doesn't pick up saved progress from an old one.
-2. Time limit: the real exam time for a full exam. For a shorter quiz, scale it (real minutes x questions / real question count, rounded up), unless the user names a time.
-3. Build: `python3 <skill-dir>/scripts/build_timed_exam.py exam.json /mnt/user-data/outputs/<cert>-timed-exam.html`. It validates the data and prints the spread of correct letters; if one letter dominates, rotate options and rebuild.
-4. Deliver: publish the file with the Artifact tool (favicon "⏱️", title = exam name). If the Artifact tool isn't available, present the file with present_files instead.
-5. In the reply after publishing, write two sentences (exam name, question count, time limit, pass mark), then give a tappable Markdown link to the published page, e.g. **[Open the Slack Administrator Mock Exam](<artifact url>)**, and say plainly that the questions appear after tapping **Start exam**, which also starts the clock. Don't paste the bare URL, and don't reveal answers in the chat.
-6. Keep the exam link separate from any skill or file cards in the same reply, so the user doesn't mistake a skill card for the exam.
+14. Write the questions exactly as in sections 3 and 4, with no `mode` field (timed is the default) and no hints (the real exam has none). Write `exam.json` in the shape documented at the top of `scripts/build_timed_exam.py`: `why` holds the explanation of the correct answer, `wrong` holds one line per incorrect option (the builder rejects a question that misses one), and `review` holds `{title, url}` links following the same no-invented-URL rule. Give the exam a unique `id` (cert + date + letter) so a new exam doesn't pick up saved progress from an old one.
+15. Time limit: the real exam time for a full exam. For a shorter quiz, scale it (real minutes x questions / real question count, rounded up), unless the user names a time.
+16. Build: `python3 <skill-dir>/scripts/build_timed_exam.py exam.json /mnt/user-data/outputs/<cert>-timed-exam.html`. It validates the data and prints the spread of correct letters; if one letter dominates, rotate options and rebuild.
+17. Deliver: publish the file with the Artifact tool (favicon "⏱️", title = exam name). If the Artifact tool isn't available, present the file with present_files instead.
+18. In the reply after publishing, write two sentences (exam name, question count, time limit, pass mark), then give a tappable Markdown link to the published page, e.g. **[Open the Slack Administrator Mock Exam](<artifact url>)**, and say plainly that the questions appear after tapping **Start exam**, which also starts the clock. Don't paste the bare URL, and don't reveal answers in the chat.
+19. Keep the exam link separate from any skill or file cards in the same reply, so the user doesn't mistake a skill card for the exam.
 
 When the user wants another timed exam, write new questions and a new `id`; don't edit the old page.
 
