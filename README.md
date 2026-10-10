@@ -27,9 +27,9 @@ skills/
 
 Then just ask, e.g. *"Quiz me on Platform App Builder"* or *"Give me a timed Administrator mock exam."*
 
-## Required: Trailhead MCP connector
+## Recommended: Trailhead MCP connector
 
-Set up Trailhead MCP in the same AI client where you use this skill. The skill requires the connector to find the official certification preparation trail and retrieve its structure. The server provides public Trailhead learning content, requires no authentication, and does not access private learner data. This connector setup is separate from installing the skill.
+Set up Trailhead MCP in the same AI client where you use this skill. The skill uses the connector to find the official certification preparation trail and retrieve its structure. Without it, the skill tells you the connector is missing, shows how to add it, and offers to continue with web search instead, so questions may be less closely matched to the official prep trail. The server provides public Trailhead learning content, requires no authentication, and does not access private learner data. This connector setup is separate from installing the skill.
 
 Server URL: `https://mcp.trailhead.salesforce.com/mcp`
 
