@@ -1,6 +1,6 @@
 ---
 name: "salesforce-cert-mock-exam"
-description: Build hard, scenario-based mock exams and quizzes for any Salesforce certification the user names (Administrator, Advanced Administrator, Platform App Builder, Platform Developer, Sales/Service Cloud Consultant, Agentforce Specialist, Data Cloud, Marketing Cloud, architect exams and others), grounded in that exam's official exam guide, its Trailhead preparation trail or trailmix, and Salesforce Help. Each answer explains why the correct option is right, why every other option is wrong, and links the Trailhead unit or Help article to review. Use whenever the user asks for a Salesforce mock exam, practice test, practice questions, exam-style quiz, flashcards or a timed exam with a countdown for a Salesforce certification or exam topic, even if they just say "quiz me on Platform App Builder" or "another mock exam". For the Salesforce Certified Slack Administrator exam, use slack-admin-mock-exam instead.
+description: Build hard, use-case-based mock exams and quizzes for any Salesforce certification the user names (Administrator, Advanced Administrator, Platform App Builder, Platform Developer, Sales/Service Cloud Consultant, Agentforce Specialist, Data Cloud, Marketing Cloud, architect exams and others), grounded in that exam's official exam guide, its Trailhead preparation trail or trailmix, and Salesforce Help. Each answer explains why the correct option is right, why every other option is wrong, and links the Trailhead unit or Help article to review. Use whenever the user asks for a Salesforce mock exam, practice test, practice questions, exam-style quiz, flashcards or a timed exam with a countdown for a Salesforce certification or exam topic, even if they just say "quiz me on Platform App Builder" or "another mock exam". For the Salesforce Certified Slack Administrator exam, use slack-admin-mock-exam instead.
 ---
 
 # Salesforce Certification Mock Exam Builder
@@ -30,19 +30,60 @@ Use the retrieval routes in `references/retrieval.md`. Gather only what the requ
 
 As you gather, keep a running note per fact of where it came from (module slug + unit slug, Help article URL or title). The review links in section 4 come from this note, so record them as you go rather than reconstructing them later.
 
-## 3. Write questions that are genuinely hard
+## 3. Write use-case questions that are genuinely hard
 
 Every question must be traceable to something in the sources. Never invent limits, numbers, edition entitlements or permission names. If you are unsure of a fact, drop the question rather than guess.
 
-Make difficulty come from precision, not trickery:
+### Why use cases matter
 
-- **Scenario stems.** Open with a short situation (company, edition, user type, business requirement), as the real exams do: "Universal Containers wants sales reps to see only opportunities in their region..." Ask for the best solution, the correct configuration, what happens next, or what the admin or developer should check first.
-- **Distractors from adjacent truths.** Wrong options should be real Salesforce features that are correct in a neighbouring situation. Typical examples: a sharing tool that opens access when the requirement is to restrict it; a declarative tool that can't do the specific thing asked; the right feature on the wrong object or edition; a setting that sounds right but does something else. Avoid joke options and "none of the above".
+The real Salesforce exams are built from business use cases, not fact recall. A learner who scored around 90% on short "which role does X?" practice questions scored around 70% on the real exam, because the real questions bury the deciding rule inside a realistic scenario with competing requirements. Practice that only tests recall gives false confidence. Write every question so the learner has to read a situation, decide which details matter, and apply the rule.
+
+### Shape of every question
+
+- **Stem length: about 50-110 words.** Open with a fictional company (Universal Containers, Cloud Kicks, Northern Trail Outfitters, Ursa Major Solar and similar), its edition or plan, who is involved, and what they need. One-line recall stems are not allowed, except for at most 10% of a set as quick definition checks.
+- **At least two requirements or constraints.** For example: a business need plus a limit such as least privilege, no code, fewest steps, lowest maintenance, minimal licence cost, an existing tool that must be kept, or a data-volume or timing constraint. The constraint is usually what decides between two otherwise valid options.
+- **One or two irrelevant details.** Include realistic facts that don't change the answer (team size, a past project, a feature already in use elsewhere), so the learner practises filtering, as on the real exam. Never let an irrelevant detail make a second option correct.
+- **Ask for a judgement, not a definition.** Prefer: "What should the administrator recommend?", "What is the best solution?", "What should the consultant do first?", "Which approach meets the requirements with the least effort?", "What will happen when...?", "Why is ... not working?". Use plain recall ("Which feature does X?") only for the small allowance above.
+- **Two plausible options.** At least two options should solve the stated business need; only one also satisfies every constraint. The explanation must name the constraint that eliminates the near-miss.
+- **Troubleshooting and consequence items.** In each full exam, make roughly 15-20% "something isn't working, why?" or "what happens to existing records/users/data after this change?" questions.
+
+### Example: recall style vs use-case style
+
+Recall style (avoid):
+> Which feature lets an admin control field visibility by profile?
+
+Use-case style (write this):
+> Cloud Kicks has 40 sales reps and 6 sales managers, all on the same profile. The company recently rolled out Dynamic Forms on the Opportunity page. Managers must be able to edit the Discount field on opportunities, but reps must only see it, and the admin wants a solution that won't need a new profile each time a manager is hired. What should the administrator do?
+> A. Create a permission set granting edit access to Discount and assign it to managers *(correct)*
+> B. Use Dynamic Forms to show the field as read-only to reps
+> C. Create a separate profile for managers with edit access
+> D. Add a validation rule that blocks reps from changing Discount
+
+Here B is a near-miss (Dynamic Forms controls display, not field-level security), C meets the need but breaks the "no new profile" constraint, and D works but is a workaround, not access control. The team size and the Dynamic Forms rollout are deliberate irrelevant details.
+
+### Distractors and options
+
+- **Distractors from adjacent truths.** Wrong options should be real Salesforce features that are correct in a neighbouring situation: a sharing tool that opens access when the requirement is to restrict it; a declarative tool that can't do the specific thing asked; the right feature on the wrong object or edition; a valid approach that breaks one stated constraint. Avoid joke options and "none of the above".
 - **Target the confusable pairs for that exam.** Examples: profiles vs permission sets vs permission set groups; OWD vs role hierarchy vs sharing rules vs manual sharing; lookup vs master-detail; validation rules vs Flow vs Apex triggers; record-triggered before-save vs after-save Flow; formula vs roll-up summary; page layouts vs record types vs Dynamic Forms; change sets vs Salesforce CLI/DevOps Center; reports vs report types vs dashboards. Pick the ones that matter for the exam in hand.
 - **"Choose 2" / "Choose 3" questions.** The real exams have these, but the exam page takes one answer per question. Rewrite each as a single-answer question that still tests the same knowledge: ask for the one best option, or ask which option is *not* valid, or make the scenario specific enough that only one option fits. Never combine options ("A and C").
-- **Keep options parallel.** Similar length and grammar, so the longest or most detailed option isn't a giveaway. Rotate the correct letter evenly across A–D.
-- **One defensible answer.** Re-read each question as a sceptical examiner. If a second option could be argued correct, rewrite it.
-- **Mix in a few consequence questions.** What happens to existing records, sharing, data or automation after a change.
+- **Keep options parallel.** Similar length and grammar, so the longest or most detailed option isn't a giveaway. Rotate the correct letter evenly across A-D.
+- **One defensible answer.** Re-read each question as a sceptical examiner. If a second option satisfies every requirement and constraint in the stem, add or sharpen a constraint, or rewrite.
+
+### Explanations for use-case questions
+
+In `why`, name the rule and the constraint it satisfies ("Permission sets add access without a new profile, which meets the 'no new profile per hire' requirement."). In each `wrong` line, say what that option is actually right for and which part of the scenario it fails ("C: a separate profile works, but breaks the requirement to avoid a new profile per hire.").
+
+### Quality check before building
+
+Before running the builder, check the whole set:
+
+1. At least 90% of stems are scenarios of roughly 50-110 words with two or more requirements or constraints.
+2. Every scenario question has a near-miss option, and its `wrong` line names the deciding constraint.
+3. Irrelevant details never make a second option correct.
+4. Every fact is traceable to the gathered sources.
+5. Correct letters are evenly spread.
+
+Fix any question that fails before building.
 
 ## 4. Deliver it
 
@@ -88,6 +129,8 @@ Steps:
 
 When the user wants another timed exam, write new questions and a new `id`; don't edit the old page.
 
-## 5. Repeat runs
+## 5. Repeat runs and score calibration
 
 When the user asks for another exam, write new scenarios rather than reshuffling earlier ones, and vary which rule each question tests within a domain. If they report their score by domain, weight the next set towards their weakest domains while still covering every domain.
+
+When discussing readiness, be honest that practice scores tend to run higher than the real exam. Suggest aiming for 80% or more on fresh use-case sets, including at least one timed run, before booking. Never present a practice score as a guaranteed pass.
