@@ -54,6 +54,9 @@ html = tpl.read_text()
 # Escape "</" so exam text can never close the JSON script tag
 payload = json.dumps(exam, ensure_ascii=False).replace("</", "<\\/")
 html = html.replace("__EXAM_JSON__", payload)
+# Static <title> names the published page, so set it to the exam title
+import html as htmlmod
+html = html.replace("<title>Mock exam</title>", "<title>" + htmlmod.escape(exam["title"]) + "</title>", 1)
 pathlib.Path(out).write_text(html)
 dist = ", ".join(f"{chr(65+k)}={v}" for k, v in sorted(letters.items()))
 print(f"OK: {len(qs)} questions, {exam['timeLimitMinutes']} min, pass {exam['passPercent']}%. Correct-letter spread: {dist}")

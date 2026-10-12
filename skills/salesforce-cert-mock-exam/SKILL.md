@@ -1,6 +1,6 @@
 ---
 name: "salesforce-cert-mock-exam"
-description: Build hard, use-case-based mock exams and quizzes for any Salesforce certification the user names (Administrator, Advanced Administrator, Platform App Builder, Platform Developer, Sales/Service Cloud Consultant, Agentforce Specialist, Data Cloud, Marketing Cloud, architect exams and others), grounded in that exam's official exam guide, its Trailhead preparation trail or trailmix, and Salesforce Help. Each answer explains why the correct option is right, why every other option is wrong, and links the Trailhead unit or Help article to review. Use whenever the user asks for a Salesforce mock exam, practice test, practice questions, exam-style quiz, flashcards or a timed exam with a countdown for a Salesforce certification or exam topic, even if they just say "quiz me on Platform App Builder" or "another mock exam". For the Salesforce Certified Slack Administrator exam, use slack-admin-mock-exam instead.
+description: Build hard, use-case-based mock exams and quizzes for any Salesforce certification the user names (Administrator, Advanced Administrator, Platform App Builder, Platform Developer, Sales/Service Cloud Consultant, Agentforce Specialist, Data Cloud, Marketing Cloud, architect exams and others) or Trailhead status programme (Agentblazer Champion, Innovator or Legend), grounded in that exam's official exam guide, its Trailhead preparation trail or trailmix, and Salesforce Help. Each answer explains why the correct option is right, why every other option is wrong, and links the Trailhead unit or Help article to review. Use whenever the user asks for a Salesforce mock exam, practice test, practice questions, exam-style quiz, flashcards or a timed exam with a countdown for a Salesforce certification or exam topic, even if they just say "quiz me on Platform App Builder" or "another mock exam". For the Salesforce Certified Slack Administrator exam, use slack-admin-mock-exam instead.
 ---
 
 # Salesforce Certification Mock Exam Builder
@@ -21,6 +21,24 @@ Exam details change with releases, so never rely on memory for them. At the star
 How to find them is in `references/retrieval.md`. If an earlier search in this conversation already found the guide, reuse it.
 
 If the guide can't be found, tell the user plainly, use whatever official details you did find, and say which details are unconfirmed. Don't invent weightings or a pass mark.
+
+### Trail-based targets with no exam guide (Agentblazer and similar)
+
+Some targets, such as Agentblazer Champion, Innovator and Legend (trailhead.salesforce.com/agentblazer), are status levels earned by completing a Trailhead trail, not proctored exams. There is no official exam guide, question count, time limit or pass mark. For these:
+
+- Find the current trail with the Trailhead MCP (see `references/retrieval.md`) and use it as the outline. Group its modules into 4-6 domains by theme (for example AI fundamentals, prompts and Prompt Builder, trust and data, building agents, Agentforce for Sales/Service), and weight each domain by the share of the trail's modules or minutes it covers.
+- Default to 40 questions, 60 minutes and a 70% pass mark. Say plainly in the reply and in the exam `subtitle` that these are practice defaults, not official figures.
+- Agentblazer Legend requires the Agentforce Specialist certification, so for Legend also look up that exam's guide and blend its domains with the Legend trail's modules.
+
+### Agentforce Specialist uses the Agentblazer trails as its prep trail
+
+When the user names the Salesforce Certified Agentforce Specialist exam (AI-201, formerly AI Specialist), it is a real exam: take the question count, time limit, pass mark and domain weightings from its official exam guide as usual. Its credential page, https://trailhead.salesforce.com/en/credentials/agentforcespecialist, has a "Study & Prepare" section whose only link is "Earn Agentblazer Status to help prepare for your exam" (trailhead.salesforce.com/agentblazer). There is no separate "Prepare for" trail, and the Legend trail ends with the Agentforce Specialist exam. So for this exam:
+
+- Use all three current-year status trails as the prep trail: Champion, Innovator and Legend (e.g. `become-an-agentblazer-champion-2026`, `-innovator-2026`, `-legend-2026`). Fetch each trail's manifest with the Trailhead MCP, then `fetch_content` the modules you need for unit text.
+- `references/agentblazer-map.md` groups every module of the three trails into seven exam-style topics. It also gives fallback weights for when the official outline can't be found. Map the topics onto the exam guide's domains when you have them, and draw each domain's questions from its mapped modules.
+- For a full exam, cover all three trails: fundamentals and the Trust Layer from Champion, planning, prompts and Sales/Service agents from Innovator, and customisation, grounding, testing and deployment from Legend. For a topic quiz, fetch only that topic's modules.
+- Don't use community trailmixes that call themselves "Agentforce Specialist Certification Prep". They are user-made, they can go stale, and the MCP can't fetch trailmixes.
+- Keep the same use-case style as the certification exams (section 3). Status trails lean on concepts, so watch the 10% cap on pure-recall stems.
 
 **Question count.** Default to a full exam matching the real scored-question count, split across domains by weighting (round, then adjust so the total matches). If the user asks for a shorter quiz, scale proportionally or focus on the domain or topic they name.
 
